@@ -1,0 +1,110 @@
+/******** Fonts ********/
+/* logo */
+@import url('https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+
+/* ==============================
+    CSS Setting
+  =============================== */
+*{
+  box-sizing: border-box;
+}
+body, h1, h2, h3, h4, ul, p, ul{
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #222;
+}
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==============================
+    Layout
+=============================== */
+/* section은 marginbottom, 안의 div는 가로너비 */
+.pc-inner{
+  max-width: 1300px;
+  margin: 0 auto;
+}
+/* ==============================
+  Header
+=============================== */
+#pc_header{
+  /* 임시 높이 */
+  /* height: 200px;  */
+}
+.logo-area{
+  text-align: center;
+}
+.logo{
+  font-family: "Sansita", serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 2em;
+}
+#pc_gnb{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  margin-top: 40px;
+  border-radius: 30px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.441);
+}
+.pc_menu li{
+  width: 100px;
+  border: 1px solid black;
+  display: inline-block;
+}
+
+/* ==============================
+  Main : news-area_top section
+=============================== */
+#news-area_top, #news-area_bottom{
+  border: 1px solid #000;
+  margin-bottom: 40px;
+}
+.news-wrap_top{
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 1.8em;
+  padding: 30px;
+  border: 1px solid red;
+}
+.news-wrap_top > div{
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+.main-newsBox{
+  grid-row: 1 / span 2;
+  height: 400px;
+}
+
+/* ==============================
+  Main : news-area_bottom section
+=============================== */
+.news-wrap_bottom{
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+.news-board-column{
+  width: 48%;
+}
+.news{
+  height: 100px;
+  margin-bottom: 10px;
+  border: 1px solid blue;
+}
