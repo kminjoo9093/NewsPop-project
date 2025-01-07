@@ -2,10 +2,9 @@
 const allNewsArea = document.querySelectorAll(
     ".main-newsBox, .sub-newsBox, .news"
   ),
-  menus = document.querySelectorAll(".pc_menu a"),
   logos = document.querySelectorAll(".logo"),
-  searchBtn = document.querySelector(".search-btn"),
-  searchInput = document.querySelector(".search input");
+  searchInputs = document.querySelectorAll(".search input"),
+  currentCategory = document.querySelector(".current-category");
 
 const API_KEY = "pub_639768de8b9947fe2dd3550490250edef22a9";
 const baseUrl = `https://newsdata.io/api/1/latest?country=kr&language=ko&apikey=${API_KEY}`;
@@ -21,7 +20,10 @@ async function getNews(url) {
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
+      console.log(response);
+      console.log(data);
       if (data.totalResults === 0) {
+        console.log("없습니다");
         throw new Error("검색어와 관련된 결과가 없습니다.");
       }
       return data.results;
@@ -29,7 +31,6 @@ async function getNews(url) {
       throw new Error(data.results.message);
     }
   } catch (error) {
-    console.log(error.message);
     renderError(error.message);
   }
 }
@@ -40,19 +41,33 @@ async function getLatestNews() {
   render();
 }
 
-//문서 로드 후 처리
+//문서 로드 후 카테고리, 키워드 처리
 document.addEventListener("DOMContentLoaded", () => {
   const storedCategory = localStorage.getItem("category");
   const storedKeyword = localStorage.getItem("keyword");
   const storedNewsList = localStorage.getItem("newsList");
   if (storedNewsList) {
     selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
-    newsList = JSON.parse(storedNewsList);
+    newsList = JSON.parse(localStorage.getItem("newsList"));
     console.log(newsList);
     render();
   } else {
     selectedCategory = false;
     getLatestNews();
+  }
+  // 현재 카테고리 색상 표시
+  if (storedCategory) {
+    if (window.innerWidth > 1080) {
+      document.querySelectorAll(".pc_menu a").forEach((a) => {
+        a.getAttribute("data-menu_en").toLowerCase() === storedCategory
+          ? a.style.setProperty("color", "crimson")
+          : a.style.setProperty("color", "#222");
+      });
+    } else {
+      const currentCategory = document.querySelector(".current-category");
+      currentCategory.style.display = "block";
+      currentCategory.textContent = storedCategory.toUpperCase();
+    }
   }
 });
 
@@ -70,15 +85,22 @@ async function getNewsByCategory(e) {
   window.location.href = e.target.href;
 }
 
+//키워드 가져오기
+function getKeyword() {
+  let keyword = "";
+  searchInputs.forEach((input) => {
+    if (input.value.length > 0) {
+      keyword = input.value;
+    }
+  });
+  return keyword;
+}
 //키워드 검색 뉴스
-async function getNewsByKeyword() {
+async function getNewsByKeyword(keyword) {
   localStorage.clear();
-  const keyword = searchInput.value;
   const url = new URL(baseUrl);
   url.searchParams.set("q", keyword);
   newsList = await getNews(url);
-  console.log(response);
-  console.log(data);
 
   localStorage.setItem("keyword", keyword);
   localStorage.setItem("newsList", JSON.stringify(newsList));
@@ -111,6 +133,10 @@ function formatDescription(description, index) {
 function render() {
   moment.locale("ko");
   let result = [];
+  // if(newsList === undefined){
+  //   renderError('검색어와 관련된 결과가 없습니다');
+  //   return;
+  // }
   result = newsList.map(
     (news, index) =>
       `<div class="news-item" onclick="moveToNews('${news.link}')">
@@ -159,16 +185,57 @@ function eventListers() {
     });
   });
 
-  //카테고리 메뉴 클릭
-  menus.forEach((menu) => {
-    menu.addEventListener("click", (e) => getNewsByCategory(e));
-  });
-
-  //키워드 검색
-  searchBtn.addEventListener("click", getNewsByKeyword);
-  searchInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      getNewsByKeyword();
-    }
+  // 반응형에 따른 버튼 이벤트
+  if (window.innerWidth > 1080) {
+    // 카테고리 클릭
+    const menus = document.querySelectorAll(".pc_menu a");
+    menus.forEach((menu) => {
+      menu.addEventListener("click", (e) => getNewsByCategory(e));
+    });
+    // 키워드 검색
+    const pcSearchBtn = document.querySelector(".pc_search-btn");
+    pcSearchBtn.addEventListener("click", () => {
+      console.log("검색클릭!!!");
+      const keyword = getKeyword();
+      console.log(keyword);
+      if (keyword.length > 0) {
+        getNewsByKeyword(keyword);
+      }
+    });
+    // const pcSearchBtns = document.querySelectorAll(".pc_search-btn");
+    // pcSearchBtns.forEach((btn) => {
+    //   btn.addEventListener("click", () => {
+    //     const keyword = getKeyword();
+    //     console.log(btn, keyword);
+    //     if (keyword.length > 0) {
+    //       getNewsByKeyword(keyword);
+    //     }
+    //   });
+    // });
+  }
+  if (window.innerWidth <= 1080) {
+    // 카테고리 클릭
+    const menus = document.querySelectorAll(".m_menu a");
+    menus.forEach((menu) => {
+      menu.addEventListener("click", (e) => getNewsByCategory(e));
+    });
+    // 키워드 검색
+    const mobileSearchBtn = document.querySelector(".m_search-btn");
+    mobileSearchBtn.addEventListener("click", () => {
+      const keyword = getKeyword();
+      if (keyword.length > 0) {
+        getNewsByKeyword(keyword);
+      }
+    });
+  }
+  searchInputs.forEach((input) => {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const keyword = getKeyword();
+        if (keyword.length > 0) {
+          getNewsByKeyword(keyword);
+        }
+      }
+    });
   });
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NewsPop</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/resposive.css">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- 폰트어썸 CDN -->
@@ -24,137 +25,70 @@
     <div class="container" id="category">
       <header>
         <!-- 로고, 검색, 카테고리 -->
-        <div id="pc_header" class="pc-inner">
+        <div id="header-inner" class="pc-inner">
           <div class="logo-area">
             <h1 class="logo"><a href="index.html">NewsPop</a></h1>
           </div>
           <nav id="pc_gnb">
             <ul class="pc_menu">
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Domestic"
-                  data-menu_kr="국내"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Business"
-                  data-menu_kr="경제"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Politics"
-                  data-menu_kr="정치"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="World"
-                  data-menu_kr="세계"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Entertainment"
-                  data-menu_kr="엔터테인먼트"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Sports"
-                  data-menu_kr="스포츠"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Health"
-                  data-menu_kr="건강"
-                ></a>
-              </li>
+              <li><a href="subPage.html" data-menu_en="Domestic" data-menu_kr="국내"></a></li>
+              <li><a href="subPage.html" data-menu_en="Business" data-menu_kr="경제"></a></li>
+              <li><a href="subPage.html" data-menu_en="Politics" data-menu_kr="정치"></a></li>
+              <li><a href="subPage.html" data-menu_en="World" data-menu_kr="세계"></a></li>
+              <li><a href="subPage.html" data-menu_en="Entertainment" data-menu_kr="엔터테인먼트"></a></li>
+              <li><a href="subPage.html" data-menu_en="Sports" data-menu_kr="스포츠"></a></li>
+              <li><a href="subPage.html" data-menu_en="Health" data-menu_kr="건강"></a></li>
             </ul>
             <div class="search">
-              <input type="search" placeholder="검색어를 입력하세요" />
-              <button class="search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
+              <input type="search" placeholder="검색어를 입력하세요">
+              <button class="search-btn pc_search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </nav>
+          <nav id="m_gnb">
+            <div class="m_btn-wrap">
+              <div class="search">
+                <input class="m_search-input" type="search" placeholder="검색어를 입력하세요">
+                <button class="search-btn m_search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
+              <button class="m_menu-btn"><i class="fa-solid fa-bars"></i></button>
+            </div >
+            <div class="m_menu-layer">
+              <ul class="m_menu">
+                <li><a href="subPage.html" data-menu_en="Domestic">국내</a></li>
+                <li><a href="subPage.html" data-menu_en="Business">경제</a></li>
+                <li><a href="subPage.html" data-menu_en="Politics">정치</a></li>
+                <li><a href="subPage.html" data-menu_en="World">세계</a></li>
+                <li><a href="subPage.html" data-menu_en="Entertainment">엔터테인먼트</a></li>
+                <li><a href="subPage.html" data-menu_en="Sports">스포츠</a></li>
+                <li><a href="subPage.html" data-menu_en="Health">건강</a></li>
+              </ul>
             </div>
           </nav>
         </div>
         <div class="active-header">
           <div class="logo-area">
-            <h1 class="logo"><a href="index.html">NewsPop</a></h1>
+            <p class="logo"><a href="index.html">NewsPop</a></p>
           </div>
           <nav id="pc_gnb">
             <ul class="pc_menu">
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Domestic"
-                  data-menu_kr="국내"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Business"
-                  data-menu_kr="경제"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Politics"
-                  data-menu_kr="정치"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="World"
-                  data-menu_kr="세계"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Entertainment"
-                  data-menu_kr="엔터테인먼트"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Sports"
-                  data-menu_kr="스포츠"
-                ></a>
-              </li>
-              <li>
-                <a
-                  href="subPage.html"
-                  data-menu_en="Health"
-                  data-menu_kr="건강"
-                ></a>
-              </li>
+              <li><a href="subPage.html" data-menu_en="Domestic" data-menu_kr="국내"></a></li>
+              <li><a href="subPage.html" data-menu_en="Business" data-menu_kr="경제"></a></li>
+              <li><a href="subPage.html" data-menu_en="Politics" data-menu_kr="정치"></a></li>
+              <li><a href="subPage.html" data-menu_en="World" data-menu_kr="세계"></a></li>
+              <li><a href="subPage.html" data-menu_en="Entertainment" data-menu_kr="엔터인먼트"></a></li>
+              <li><a href="subPage.html" data-menu_en="Sports" data-menu_kr="스포츠"></a></li>
+              <li><a href="subPage.html" data-menu_en="Health" data-menu_kr="건강"></a></li>
             </ul>
             <div class="search">
-              <input type="search" placeholder="검색어를 입력하세요" />
-              <button class="search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
+              <input type="search" placeholder="검색어를 입력하세요">
+              <button class="search-btn pc_search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
           </nav>
         </div>
       </header>
       <main>
         <section id="news-area">
+          <p class="current-category"></p>
           <div class="news-wrap_bottom pc-inner">
             <div class="news-board">
               <div class="news"></div>
@@ -166,7 +100,25 @@
           </div>
         </section>
       </main>
-      <footer></footer>
+      <footer>
+        <div class="footer-inner pc-inner">
+          <div class="footer-col">
+            <ul class="footer-copyright">
+              <li>대표자 : 강민주</li>
+              <li>&copy; 2025 NewsPop. Made with Passion.</li>
+              <li>Data provided by <a href="https://newsdata.io/">newsdata.io</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <ul class="footer-contact">
+              <li class="contact-txt">Contact</li>
+              <li><a href="tel:010-3258-9093">Phon : 010-3258-9093</a></li>
+              <li><a href="mailto:kminjoo@naver.com">Mail :  kminjoo@naver.com</a></li>
+              <li>Check out the project on <a href="https://github.com/kminjoo9093/NewsPop-project">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <!-- <script src="js/main.js"></script> -->

@@ -1,5 +1,5 @@
 /******** Fonts ********/
-/* logo */
+/* logo font */
 @import url('https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
 
 /* ==============================
@@ -39,14 +39,16 @@ a{
 /* ==============================
   Header ( PC )
 =============================== */
+
 .logo-area{
   text-align: center;
+  height: 90px;
 }
-.logo{
+.logo a{
   font-family: "Sansita", serif;
   font-weight: 700;
   font-size: 48px;
-  line-height: 2em;
+  line-height: 90px;
   height: inherit;
 }
 #pc_gnb{
@@ -56,7 +58,7 @@ a{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 15px;
   margin-top: 40px;
   border-radius: 30px;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
@@ -115,16 +117,17 @@ a{
 .search input:focus::placeholder{
   opacity: 0;
 }
-header .search-btn{
+.search-btn{
   width: 40px;
   height: 40px;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
-header .search-btn i{
+.search-btn i{
   font-size: 20px;
 }
+
 /* active header */
 .active-header{
   max-width: 100%;
@@ -142,7 +145,7 @@ header .search-btn i{
   opacity: 0;
   transition: opacity 0.35s;
 }
-.active-header .logo{
+.active-header .logo a{
   font-size: 30px;
   line-height: 2em;
 }
@@ -152,6 +155,11 @@ header .search-btn i{
   margin: 0;
   border-radius: 0;
 }
+/* Mobile Nav */
+#m_gnb{
+  display: none;
+}
+
 /* ==============================
   Main : news-area_top section
 =============================== */
@@ -295,6 +303,9 @@ header .search-btn i{
 /* ==============================
   Main : news-area_bottom section
 =============================== */
+.news-wrap_bottom.pc-inner{
+  width: 96%;
+}
 .news-wrap_bottom{
   padding: 3em;
   border-radius: 20px;
@@ -312,7 +323,6 @@ header .search-btn i{
   background-color: #fff;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-
   cursor: pointer;
   transition: 0.35s;
 }
@@ -348,6 +358,18 @@ header .search-btn i{
   opacity: 1;
   visibility: visible;
 }
+.news-board .news:hover{
+  transform: translateX(-10%);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.news-board .news:hover .news-title,
+.news-board .news:hover .news-description{
+  opacity: 1;
+}
+.news-board .news:hover .news-title{
+  text-decoration: underline;
+}
 .view-more{
   font-size: 16px;
   font-weight: 500;
@@ -361,21 +383,41 @@ header .search-btn i{
 .view-more i{
   margin-left: 5px;
 }
-.news-board .news:hover{
-  transform: translateX(-10%);
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
-  position: relative;
+
+/* ==============================
+  Footer
+=============================== */
+footer{
+  margin-top: 90px;
+  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.05);
 }
-.news-board .news:hover .news-title,
-.news-board .news:hover .news-description{
-  opacity: 1;
+.footer-inner{
+  height: 200px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 50px;
+  color: #666;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.7em;
 }
-.news-board .news:hover .news-title{
+.footer-col{
+  padding: 0 40px;
+}
+.footer-col:nth-child(2){
+  border-left: 1px solid #ddd;
+}
+.footer-col a{
   text-decoration: underline;
+}
+.contact-txt{
+  font-size: 16px;
+  line-height: 2em;
 }
 
 /* ==============================
-  Category Page : news-area_bottom section
+  subPage : news-area_bottom section
 =============================== */
 #category #news-area{
   margin-top: 50px;
@@ -391,7 +433,10 @@ header .search-btn i{
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
   position: relative;
 }
-
+/* subPage */
+.current-category{
+display: none;
+}
 /* ==============================
   Error style
 =============================== */
