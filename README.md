@@ -1,1 +1,1 @@
-https://kminjoo9093.github.io/NewsPop-project/
+https://kminjoo9093.github.io/NewsPop-project/index.html
