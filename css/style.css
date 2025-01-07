@@ -433,9 +433,21 @@ footer{
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
   position: relative;
 }
-/* subPage */
 .current-category{
 display: none;
+}
+.more-btn{
+  text-align: center;
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.more-btn i{
+  margin-left: 10px;
 }
 /* ==============================
   Error style

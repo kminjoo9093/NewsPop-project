@@ -1,7 +1,7 @@
-// PC 스크롤 시 header 변경
+// ===== PC 스크롤 시 header 변경 =====
 const header = document.querySelector("#header-inner");
 const activeHeader = document.querySelector(".active-header");
-if(window.innerWidth > 1080){
+if (window.innerWidth > 1080) {
   window.addEventListener("scroll", () => {
     let scrollValue = window.scrollY;
     if (scrollValue >= 240) {
@@ -16,7 +16,7 @@ if(window.innerWidth > 1080){
   });
 }
 
-// news hover시 바로가기 버튼 등장
+// ===== news hover시 바로가기 버튼 등장 =====
 const newsItem = document.querySelectorAll("#news-area_bottom .news");
 newsItem.forEach((item) => {
   item.addEventListener("mouseenter", (e) => {
@@ -35,14 +35,40 @@ newsItem.forEach((item) => {
   });
 });
 
-//mobile search button
-$('.m_search-btn').click(function(){
-  if($('.m_search-input').val().length == 0){
-    $('.m_search-input').addClass('active')
+// ===== mobile search button =====
+$(".m_search-btn").click(function () {
+  if ($(".m_search-input").val().length == 0) {
+    $(".m_search-input").addClass("active");
   }
-})
+});
 
-// mobile menu button active
-$('.m_menu-btn').click(function(){
-  $('.m_menu-layer').stop().slideToggle()
-})
+// ===== mobile menu button active =====
+$(".m_menu-btn").click(function () {
+  $(".m_menu-layer").stop().slideToggle();
+});
+
+// ===== subpage 더보기 클릭 시 뉴스 추가로 보여주기 =====
+// 처음 로드 시 4개만 보이도록
+const news = document.querySelectorAll("#category .news"),
+  newsNumToShow = 4;
+news.forEach((el) => {
+  el.style.display = "none";
+});
+let newsListOfSubpage = Array.from(news);
+getNewsPages();
+
+function getNewsPages() {
+  newsListOfSubpage.splice(0, newsNumToShow).forEach((news) => {
+    news.style.display = "block";
+  });
+}
+// 더보기 클릭 시 4개씩 추가
+function viewMoreNews() {
+  if (newsListOfSubpage) {
+    getNewsPages();
+    if (newsListOfSubpage.length === 0) {
+      document.querySelector(".view-more-news .more-btn").style.display =
+        "none";
+    }
+  }
+}
