@@ -1,3 +1,6 @@
+//뉴스팝 메인 로직 (원하는 뉴스 api요청/받아오기, 보여주기)
+//스크립트 마지막 수정일 : 2025.01.10 (에러 헨들링)
+
 // ************* NEWSDATA API 사용 *************
 const allNewsArea = document.querySelectorAll(
     ".main-newsBox, .sub-newsBox, .news"
@@ -20,11 +23,8 @@ async function getNews(url) {
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
-      console.log(response);
-      console.log(data);
       if (data.totalResults === 0) {
-        console.log("없습니다");
-        throw new Error("검색어와 관련된 결과가 없습니다.");
+        return [];
       }
       return data.results;
     } else {
@@ -103,6 +103,11 @@ async function getNewsByKeyword(keyword) {
   url.searchParams.set("q", keyword);
   newsList = await getNews(url);
 
+  if (newsList.length === 0) {
+    renderError("검색어와 관련된 결과가 없습니다.");
+    return;
+  }
+
   localStorage.setItem("keyword", keyword);
   localStorage.setItem("newsList", JSON.stringify(newsList));
   window.location.href = "subPage.html";
@@ -134,10 +139,6 @@ function formatDescription(description, index) {
 function render() {
   moment.locale("ko");
   let result = [];
-  // if(newsList === undefined){
-  //   renderError('검색어와 관련된 결과가 없습니다');
-  //   return;
-  // }
   result = newsList.map(
     (news, index) =>
       `<div class="news-item" onclick="moveToNews('${news.link}')">
@@ -185,6 +186,17 @@ function eventListers() {
       window.location.href = e.target.href;
     });
   });
+  //input enter 이벤트 검색
+  searchInputs.forEach((input) => {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const keyword = getKeyword();
+        if (keyword.length > 0) {
+          getNewsByKeyword(keyword);
+        }
+      }
+    });
+  });
 
   // 반응형에 따른 버튼 이벤트
   if (window.innerWidth > 1080) {
@@ -203,16 +215,6 @@ function eventListers() {
         getNewsByKeyword(keyword);
       }
     });
-    // const pcSearchBtns = document.querySelectorAll(".pc_search-btn");
-    // pcSearchBtns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     const keyword = getKeyword();
-    //     console.log(btn, keyword);
-    //     if (keyword.length > 0) {
-    //       getNewsByKeyword(keyword);
-    //     }
-    //   });
-    // });
   }
   if (window.innerWidth <= 1080) {
     // 카테고리 클릭
@@ -229,14 +231,4 @@ function eventListers() {
       }
     });
   }
-  searchInputs.forEach((input) => {
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const keyword = getKeyword();
-        if (keyword.length > 0) {
-          getNewsByKeyword(keyword);
-        }
-      }
-    });
-  });
 }

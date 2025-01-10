@@ -55,9 +55,9 @@ news.forEach((el) => {
   el.style.display = "none";
 });
 let newsListOfSubpage = Array.from(news);
-getNewsPages();
+getRestNews();
 
-function getNewsPages() {
+function getRestNews() {
   newsListOfSubpage.splice(0, newsNumToShow).forEach((news) => {
     news.style.display = "block";
   });
@@ -65,7 +65,7 @@ function getNewsPages() {
 // 더보기 클릭 시 4개씩 추가
 function viewMoreNews() {
   if (newsListOfSubpage) {
-    getNewsPages();
+    getRestNews();
     if (newsListOfSubpage.length === 0) {
       document.querySelector(".view-more-news .more-btn").style.display =
         "none";
