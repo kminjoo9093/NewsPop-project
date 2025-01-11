@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     newsList = JSON.parse(sessionStorage.getItem("newsList"));
     console.log(newsList);
     render();
+    sessionStorage.clear();
   } else {
     selectedCategory = false;
     getLatestNews();
