@@ -4,8 +4,8 @@
 Demo : https://kminjoo9093.github.io/NewsPop-project/index.html
 <br>
 <img src="images/readme/pc_demo1.png" width="300"/>
-<img src="images/readme/tablet_demo.png" width="250"/>
-<img src="images/readme/mobile_demo.png" width="200"/>
+<img src="images/readme/tablet_demo.png" height="150"/>
+<img src="images/readme/mobile_demo.png" height="100"/>
 
 <br><br>
 
