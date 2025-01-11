@@ -25,6 +25,11 @@ Demo : https://kminjoo9093.github.io/NewsPop-project/index.html
 
 ### **Advanced Feature**
 
-<br><br>
+- 현재 카테고리 표시<br>
+  (PC 버전)<br>
+  <img src="images/readme/subpage-feature-01.png"/><br>
+  (태블릿, 모바일 버전)<br>
+  <img src="images/readme/subpage-feature-02.png"/>
+  <br><br>
 
 ### **개선 사항**
