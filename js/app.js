@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth > 1080) {
       document.querySelectorAll(".pc_menu a").forEach((a) => {
         a.getAttribute("data-menu_en").toLowerCase() === storedCategory
-          ? a.style.color = "crimson"
-          : a.style.color = "#222";
+          ? (a.style.color = "crimson")
+          : (a.style.color = "#222");
       });
     } else {
       const currentCategory = document.querySelector(".current-category");
