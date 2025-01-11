@@ -24,7 +24,7 @@ async function getNews(url) {
     const data = await response.json();
     if (response.status === 200) {
       if (data.totalResults === 0) {
-        return [];
+        return []; //검색어 결과 없음
       }
       return data.results;
     } else {
