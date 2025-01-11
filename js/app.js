@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     newsList = JSON.parse(sessionStorage.getItem("newsList"));
     console.log(newsList);
     render();
-    sessionStorage.clear();
   } else {
     selectedCategory = false;
     getLatestNews();
@@ -162,6 +161,7 @@ function render() {
   for (let i = 0; i < allNewsArea.length; i++) {
     allNewsArea[i].innerHTML = result[i];
   }
+  sessionStorage.clear();
 }
 
 function renderError(errorMessage) {
