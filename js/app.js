@@ -43,15 +43,14 @@ async function getLatestNews() {
 
 //문서 로드 후 카테고리, 키워드 처리
 document.addEventListener("DOMContentLoaded", () => {
-  const storedCategory = localStorage.getItem("category");
-  const storedKeyword = localStorage.getItem("keyword");
-  const storedNewsList = localStorage.getItem("newsList");
+  const storedCategory = sessionStorage.getItem("category");
+  const storedKeyword = sessionStorage.getItem("keyword");
+  const storedNewsList = sessionStorage.getItem("newsList");
   if (storedNewsList) {
     selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
-    newsList = JSON.parse(localStorage.getItem("newsList"));
+    newsList = JSON.parse(sessionStorage.getItem("newsList"));
     console.log(newsList);
     render();
-    localStorage.clear();
   } else {
     selectedCategory = false;
     getLatestNews();
@@ -61,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth > 1080) {
       document.querySelectorAll(".pc_menu a").forEach((a) => {
         a.getAttribute("data-menu_en").toLowerCase() === storedCategory
-          ? a.style.setProperty("color", "crimson")
-          : a.style.setProperty("color", "#222");
+          ? a.style.color = "crimson"
+          : a.style.color = "#222";
       });
     } else {
       const currentCategory = document.querySelector(".current-category");
@@ -75,14 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
 //카테고리 별 뉴스
 async function getNewsByCategory(e) {
   e.preventDefault();
-  localStorage.clear();
+  sessionStorage.clear();
   const selectedMenu = e.target.getAttribute("data-menu_en").toLowerCase();
   const url = new URL(baseUrl);
   url.searchParams.set("category", selectedMenu);
   newsList = await getNews(url);
 
-  localStorage.setItem("category", selectedMenu);
-  localStorage.setItem("newsList", JSON.stringify(newsList));
+  sessionStorage.setItem("category", selectedMenu);
+  sessionStorage.setItem("newsList", JSON.stringify(newsList));
   window.location.href = e.target.href;
 }
 
@@ -98,7 +97,7 @@ function getKeyword() {
 }
 //키워드 검색 뉴스
 async function getNewsByKeyword(keyword) {
-  localStorage.clear();
+  sessionStorage.clear();
   const url = new URL(baseUrl);
   url.searchParams.set("q", keyword);
   newsList = await getNews(url);
@@ -108,8 +107,8 @@ async function getNewsByKeyword(keyword) {
     return;
   }
 
-  localStorage.setItem("keyword", keyword);
-  localStorage.setItem("newsList", JSON.stringify(newsList));
+  sessionStorage.setItem("keyword", keyword);
+  sessionStorage.setItem("newsList", JSON.stringify(newsList));
   window.location.href = "subPage.html";
 }
 
@@ -182,7 +181,7 @@ function eventListers() {
   logos.forEach((logo) => {
     logo.addEventListener("click", (e) => {
       e.preventDefault();
-      localStorage.clear();
+      sessionStorage.clear();
       window.location.href = e.target.href;
     });
   });
