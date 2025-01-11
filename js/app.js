@@ -1,5 +1,5 @@
 //뉴스팝 메인 로직 (원하는 뉴스 api요청/받아오기, 보여주기)
-//스크립트 마지막 수정일 : 2025.01.10 (에러 헨들링)
+//스크립트 마지막 수정일 : 2025.01.11 
 
 // ************* NEWSDATA API 사용 *************
 const allNewsArea = document.querySelectorAll(
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //카테고리 별 뉴스
 async function getNewsByCategory(e) {
   e.preventDefault();
-  sessionStorage.clear();
+  // sessionStorage.clear();
   const selectedMenu = e.target.getAttribute("data-menu_en").toLowerCase();
   const url = new URL(baseUrl);
   url.searchParams.set("category", selectedMenu);
@@ -82,6 +82,9 @@ async function getNewsByCategory(e) {
 
   sessionStorage.setItem("category", selectedMenu);
   sessionStorage.setItem("newsList", JSON.stringify(newsList));
+
+  // 메인페이지에서는 삭제
+  sessionStorage.clear();
   window.location.href = e.target.href;
 }
 
@@ -97,7 +100,7 @@ function getKeyword() {
 }
 //키워드 검색 뉴스
 async function getNewsByKeyword(keyword) {
-  sessionStorage.clear();
+  // sessionStorage.clear();
   const url = new URL(baseUrl);
   url.searchParams.set("q", keyword);
   newsList = await getNews(url);
@@ -109,6 +112,9 @@ async function getNewsByKeyword(keyword) {
 
   sessionStorage.setItem("keyword", keyword);
   sessionStorage.setItem("newsList", JSON.stringify(newsList));
+
+  // 메인페이지에서는 삭제
+  sessionStorage.clear();
   window.location.href = "subPage.html";
 }
 
@@ -161,7 +167,7 @@ function render() {
   for (let i = 0; i < allNewsArea.length; i++) {
     allNewsArea[i].innerHTML = result[i];
   }
-  sessionStorage.clear();
+  // sessionStorage.clear();
 }
 
 function renderError(errorMessage) {
