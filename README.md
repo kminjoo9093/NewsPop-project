@@ -23,7 +23,7 @@ Demo : https://kminjoo9093.github.io/NewsPop-project/index.html
 - jQuery
   <br><br>
 
-### **Advanced Feature**
+### **Advanced Features**
 
 - **현재 카테고리 표시**<br><br>
   (PC 버전)<br>
