@@ -1,7 +1,7 @@
 # NewsPop 뉴스 웹사이트
 
 오픈 api이용한 반응형 뉴스 웹사이트 제작 <br><br>
-Demo :
+Demo : https://kminjoo9093.github.io/NewsPop-project/
 <br><br>
 <img src="images/readme/pc_demo1.png" width="350"/>
 <img src="images/readme/tablet_demo.png" height="200"/>
