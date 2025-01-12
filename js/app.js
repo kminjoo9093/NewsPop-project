@@ -1,5 +1,5 @@
 //뉴스팝 메인 로직 (원하는 뉴스 api요청/받아오기, 보여주기)
-//스크립트 마지막 수정일 : 2025.01.11 
+//스크립트 마지막 수정일 : 2025.01.12
 
 // ************* NEWSDATA API 사용 *************
 const allNewsArea = document.querySelectorAll(
@@ -49,13 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (storedNewsList) {
     selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
     newsList = JSON.parse(sessionStorage.getItem("newsList"));
-    console.log(newsList);
     render();
-    sessionStorage.clear();
   } else {
     selectedCategory = false;
     getLatestNews();
-    sessionStorage.clear();
   }
   // 현재 카테고리 색상 표시
   if (storedCategory) {
@@ -71,12 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
       currentCategory.textContent = storedCategory.toUpperCase();
     }
   }
+  sessionStorage.clear();
 });
 
 //카테고리 별 뉴스
 async function getNewsByCategory(e) {
   e.preventDefault();
-  sessionStorage.clear();
   const selectedMenu = e.target.getAttribute("data-menu_en").toLowerCase();
   const url = new URL(baseUrl);
   url.searchParams.set("category", selectedMenu);
@@ -99,7 +96,6 @@ function getKeyword() {
 }
 //키워드 검색 뉴스
 async function getNewsByKeyword(keyword) {
-  sessionStorage.clear();
   const url = new URL(baseUrl);
   url.searchParams.set("q", keyword);
   newsList = await getNews(url);
@@ -111,7 +107,6 @@ async function getNewsByKeyword(keyword) {
 
   sessionStorage.setItem("keyword", keyword);
   sessionStorage.setItem("newsList", JSON.stringify(newsList));
-
   window.location.href = "subPage.html";
 }
 
@@ -184,7 +179,6 @@ function eventListers() {
   logos.forEach((logo) => {
     logo.addEventListener("click", (e) => {
       e.preventDefault();
-      sessionStorage.clear();
       window.location.href = e.target.href;
     });
   });
@@ -210,9 +204,7 @@ function eventListers() {
     // 키워드 검색
     const pcSearchBtn = document.querySelector(".pc_search-btn");
     pcSearchBtn.addEventListener("click", () => {
-      console.log("검색클릭!!!");
       const keyword = getKeyword();
-      console.log(keyword);
       if (keyword.length > 0) {
         getNewsByKeyword(keyword);
       }
