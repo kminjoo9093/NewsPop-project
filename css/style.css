@@ -5,6 +5,9 @@
 /* ==============================
     CSS Setting
   =============================== */
+html{
+  font-size: 62.5%;
+}
 *{
   box-sizing: border-box;
 }
@@ -14,7 +17,7 @@ body, h1, h2, h3, h4, ul, p, ul{
 }
 body{
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5em;
   color: #222;
@@ -33,7 +36,7 @@ a{
 =============================== */
 /* section은 marginbottom, 안의 div는 가로너비 */
 .pc-inner{
-  max-width: 1300px;
+  max-width: 130rem;
   margin: 0 auto;
 }
 /* ==============================
@@ -42,45 +45,45 @@ a{
 
 .logo-area{
   text-align: center;
-  height: 90px;
+  height: 9rem;
 }
 .logo a{
   font-family: "Sansita", serif;
   font-weight: 700;
-  font-size: 48px;
-  line-height: 90px;
+  font-size: 4.8rem;
+  line-height: 9rem;
   height: inherit;
 }
 #pc_gnb{
   width: 90%;
-  height: 70px;
+  height: 7rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  margin-top: 40px;
-  border-radius: 30px;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  margin-top: 4rem;
+  border-radius: 3rem;
+  box-shadow: 0 0 .7rem rgba(0, 0, 0, 0.5);
 }
 .pc_menu{
-  height: 35px;
+  height: 3.5rem;
 }
 .pc_menu li{
   display: inline-block;
   overflow: hidden;
 }
 .pc_menu li a{
-  font-size: 18px;
-  width: 90px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 1.8rem;
+  width: 9rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
   text-align: center;
   position: relative;
   transition: 0.35s;
 }
 .pc_menu li:nth-child(5) a{
-  width: 120px;
+  width: 12rem;
 }
 .pc_menu li a:before,
 .pc_menu li a:after{
@@ -106,26 +109,26 @@ a{
   color: crimson;
 }
 .search input{
-  max-width: 200px;
-  font-size: 16px;
+  max-width: 20rem;
+  font-size: 1.6rem;
   padding: 0.3em 0.5em;
   outline: none;
 }
 .search input::placeholder{
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 .search input:focus::placeholder{
   opacity: 0;
 }
 .search-btn{
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
 .search-btn i{
-  font-size: 20px;
+  font-size: 2rem;
 }
 
 /* active header */
@@ -135,9 +138,9 @@ a{
   height: 0;
   overflow: hidden;
   display: flex;
-  padding: 0 30px;
+  padding: 0 3rem;
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 .2rem .8rem rgba(0, 0, 0, 0.15);
   position: fixed;
   top: 0;
   left: 0;
@@ -146,7 +149,7 @@ a{
   transition: opacity 0.35s;
 }
 .active-header .logo a{
-  font-size: 30px;
+  font-size: 3rem;
   line-height: 2em;
 }
 .active-header #pc_gnb{
@@ -164,30 +167,28 @@ a{
   Main : news-area_top section
 =============================== */
 #news-area_top, #news-area_bottom{
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
 }
 .news-wrap_top{
-  height: 500px;
+  height: 50rem;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 1.4em;
-  padding: 30px;
+  padding: 3rem;
 }
 .news-wrap_top > div{
-  /* border: 1px solid #000; */
-  border-radius: 20px;
+  border-radius: 2rem;
   cursor: pointer;
 }
 .main-newsBox{
   grid-row: 1 / span 2;
-  /* height: 400px; */
 }
 .main-newsBox,
 .sub-newsBox{
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
 }
 .main-newsBox .news-item,
 .sub-newsBox .news-item{
@@ -238,20 +239,20 @@ a{
   }
 }
 .main-newsBox .news-txt{
-  height: 70px;
+  height: 7rem;
   padding: 1.5em;
 }
 .main-newsBox .news-title{
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 600;
 }
 .sub-newsBox .news-txt{
   height: 30%;
-  padding: 0 20px;
+  padding: 0 2rem;
 }
 .main-newsBox .news-description{
-  font-size: 18px;
-  margin-top: 15px;
+  font-size: 1.8rem;
+  margin-top: 1.5rem;
 }
 .main-newsBox .news-description,
 .sub-newsBox .news-description{
@@ -261,24 +262,24 @@ a{
 }
 .sub-newsBox .news-title
 {
-  margin-top: 10px;
-  font-size: 16px;
+  margin-top: 1rem;
+  font-size: 1.6rem;
 }
 .sub-newsBox .news-description{
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 .news-txt .press{
   text-align: right;
   font-style: normal;
-  font-size: 14px;
+  font-size: 1.4rem;
   opacity: 0.8;
 }
 .main-newsBox .press,
 .news .press{
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 .sub-newsBox .press{
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 /* 뉴스박스 hover */
 .main-newsBox:hover .news-img img,
@@ -286,7 +287,7 @@ a{
   transform: scale(1.05);
 }
 .main-newsBox:hover .news-title{
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 .main-newsBox:hover .news-description,
 .sub-newsBox:hover .news-description{
@@ -308,7 +309,7 @@ a{
 }
 .news-wrap_bottom{
   padding: 3em;
-  border-radius: 20px;
+  border-radius: 2rem;
   background-color: #efefef;
 }
 .news-board{
@@ -317,11 +318,11 @@ a{
 }
 .news-board .news{
   width: 80%;
-  height: 200px;
-  margin: 0 auto 20px;
-  border-radius: 20px;
+  height: 20rem;
+  margin: 0 auto 2rem;
+  border-radius: 2rem;
   background-color: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
   cursor: pointer;
   transition: 0.35s;
@@ -330,7 +331,7 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 20rem;
 }
 .news-board .news .news-img{
   height: 100%;
@@ -343,16 +344,16 @@ a{
   object-fit: cover;
 }
 .news-board .news .news-txt{
-  padding: 0 20px;
+  padding: 0 2rem;
   flex: 1;
   opacity: 0.8;
   transition: 0.4s;
 }
 .news-board .news .news-title{
   display: block;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 .news-board .news .news-description{
   opacity: 1;
@@ -371,7 +372,7 @@ a{
   text-decoration: underline;
 }
 .view-more{
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
   color: #666;
   position: absolute;
@@ -381,38 +382,38 @@ a{
   transition: 0.35s;
 }
 .view-more i{
-  margin-left: 5px;
+  margin-left: .5rem;
 }
 
 /* ==============================
   Footer
 =============================== */
 footer{
-  margin-top: 90px;
-  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.05);
+  margin-top: 9rem;
+  box-shadow: 0 -.3rem .5rem rgba(0, 0, 0, 0.05);
 }
 .footer-inner{
-  height: 200px;
+  height: 20rem;
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: 50px;
+  padding: 5rem;
   color: #666;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: normal;
   line-height: 1.7em;
 }
 .footer-col{
-  padding: 0 40px;
+  padding: 0 4rem;
 }
 .footer-col:nth-child(2){
-  border-left: 1px solid #ddd;
+  border-left: .1rem solid #ddd;
 }
 .footer-col a{
   text-decoration: underline;
 }
 .contact-txt{
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 2em;
 }
 
@@ -420,7 +421,7 @@ footer{
   subPage : news-area_bottom section
 =============================== */
 #category #news-area{
-  margin-top: 50px;
+  margin-top: 5rem;
 }
 #category .news-wrap_bottom{
   background-color: #fff;
@@ -430,7 +431,7 @@ footer{
 }
 #category .news:hover{
   transform: none;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 .7rem rgba(0, 0, 0, 0.3);
   position: relative;
 }
 .current-category{
@@ -438,34 +439,34 @@ display: none;
 }
 .more-btn{
   text-align: center;
-  font-size: 18px;
+  font-size: 1.8rem;
   background-color: transparent;
   border: none;
   border-radius: 0;
   width: 100%;
-  padding: 10px 0;
+  padding: 1rem 0;
   cursor: pointer;
 }
 .more-btn i{
-  margin-left: 10px;
+  margin-left: 1rem;
 }
 /* ==============================
   Error style
 =============================== */
 .error-box{
-  border: 1px solid crimson;
-  border-radius: 10px;
-  max-width: 1100px;
-  margin: 60px auto;
-  padding: 0 20px;
+  border: .1rem solid crimson;
+  border-radius: 1rem;
+  max-width: 110rem;
+  margin: 6rem auto;
+  padding: 0 2rem;
   background-color: #facfd2;
 }
 .error-message{
-  font-size: 18px;
-  height: 60px;
-  line-height: 60px;
+  font-size: 1.8rem;
+  height: 6rem;
+  line-height: 6rem;
 }
 .error-message i{
-  margin-right: 10px;
-  font-size: 20px;
+  margin-right: 1rem;
+  font-size: 2rem;
 }

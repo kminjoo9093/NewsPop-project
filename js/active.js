@@ -1,12 +1,14 @@
 // ===== PC 스크롤 시 header 변경 =====
 const header = document.querySelector("#header-inner");
 const activeHeader = document.querySelector(".active-header");
-if (window.innerWidth > 1080) {
+handelHeader();
+
+function handelHeader() {
   window.addEventListener("scroll", () => {
     let scrollValue = window.scrollY;
-    if (scrollValue >= 240) {
+    if (window.innerWidth > 1080 && scrollValue >= 240) {
       header.style.display = "none";
-      activeHeader.style.height = `70px`;
+      activeHeader.style.height = `7rem`;
       activeHeader.style.opacity = 1;
     } else {
       header.style.display = "block";
@@ -47,10 +49,11 @@ $(".m_menu-btn").click(function () {
   $(".m_menu-layer").stop().slideToggle();
 });
 
-// ===== subpage 더보기 클릭 시 뉴스 추가로 보여주기 =====
+// ===== subpage 더보기 클릭 시 뉴스 추가 =====
 // 처음 로드 시 4개만 보이도록
-const news = document.querySelectorAll("#category .news"),
-  newsNumToShow = 4;
+const news = document.querySelectorAll("#category .news");
+const newsNumToShow = 4;
+
 news.forEach((el) => {
   el.style.display = "none";
 });

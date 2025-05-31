@@ -41,40 +41,63 @@ async function getLatestNews() {
   render();
 }
 
+let storedCategory = "";
+let storedKeyword = "";
+let storedNewsList = "";
+
 //문서 로드 후 카테고리, 키워드 처리
 document.addEventListener("DOMContentLoaded", () => {
-  const storedCategory = sessionStorage.getItem("category");
-  const storedKeyword = sessionStorage.getItem("keyword");
-  const storedNewsList = sessionStorage.getItem("newsList");
+
+  storedCategory = sessionStorage.getItem("category");
+  storedKeyword = sessionStorage.getItem("keyword");
+  storedNewsList = sessionStorage.getItem("newsList");
+
   if (storedNewsList) {
     selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
     newsList = JSON.parse(sessionStorage.getItem("newsList"));
+    // newsList = JSON.parse(storedNewsList);
     render();
+    showCategory(storedCategory);
   } else {
     selectedCategory = false;
     getLatestNews();
   }
-  // 현재 카테고리 색상 표시
-  if (storedCategory) {
+  
+  sessionStorage.clear();
+  // test
+  selectedCategory = false;
+});
+
+window.addEventListener("resize", () => {
+  showCategory(storedCategory);
+});
+
+function showCategory(category) {
+  const pcMenu = document.querySelectorAll(".pc_menu a");
+  const currentCategory = document.querySelector(".current-category");
+
+  if (category) {
     if (window.innerWidth > 1080) {
-      document.querySelectorAll(".pc_menu a").forEach((a) => {
-        a.getAttribute("data-menu_en").toLowerCase() === storedCategory
+      pcMenu.forEach((a) => {
+        a.getAttribute("data-menu_en").toLowerCase() === category
           ? (a.style.color = "crimson")
           : (a.style.color = "#222");
       });
+      currentCategory.style.display = "none";
     } else {
-      const currentCategory = document.querySelector(".current-category");
       currentCategory.style.display = "block";
-      currentCategory.textContent = storedCategory.toUpperCase();
+      currentCategory.textContent = category.toUpperCase();
+
+      // test
+      pcMenu.forEach((a)=> a.style.color = "#222");
     }
   }
-  sessionStorage.clear();
-});
+}
 
 //카테고리 별 뉴스
 async function getNewsByCategory(e) {
   e.preventDefault();
-  const selectedMenu = e.target.getAttribute("data-menu_en").toLowerCase();
+  const selectedMenu = e.currentTarget.getAttribute("data-menu_en").toLowerCase();
   const url = new URL(baseUrl);
   url.searchParams.set("category", selectedMenu);
   newsList = await getNews(url);
@@ -187,9 +210,7 @@ function eventListers() {
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         const keyword = getKeyword();
-        if (keyword.length > 0) {
-          getNewsByKeyword(keyword);
-        }
+        getNewsByKeyword(keyword);
       }
     });
   });
@@ -197,32 +218,49 @@ function eventListers() {
   // 반응형에 따른 버튼 이벤트
   if (window.innerWidth > 1080) {
     // 카테고리 클릭
-    const menus = document.querySelectorAll(".pc_menu a");
-    menus.forEach((menu) => {
-      menu.addEventListener("click", (e) => getNewsByCategory(e));
-    });
+    // const menus = document.querySelectorAll(".pc_menu a");
+    // menus.forEach((menu) => {
+    //   menu.addEventListener("click", (e) => getNewsByCategory(e));
+    // });
+
+    // test
+    clickCategory(".pc_menu a");
+
     // 키워드 검색
     const pcSearchBtn = document.querySelector(".pc_search-btn");
     pcSearchBtn.addEventListener("click", () => {
       const keyword = getKeyword();
-      if (keyword.length > 0) {
-        getNewsByKeyword(keyword);
-      }
+      getNewsByKeyword(keyword);
     });
   }
   if (window.innerWidth <= 1080) {
     // 카테고리 클릭
-    const menus = document.querySelectorAll(".m_menu a");
-    menus.forEach((menu) => {
-      menu.addEventListener("click", (e) => getNewsByCategory(e));
-    });
+    // const menus = document.querySelectorAll(".m_menu a");
+    // menus.forEach((menu) => {
+    //   menu.addEventListener("click", (e) => getNewsByCategory(e));
+    // });
+
+    // test
+    clickCategory(".m_menu a");
+
     // 키워드 검색
     const mobileSearchBtn = document.querySelector(".m_search-btn");
-    mobileSearchBtn.addEventListener("click", () => {
-      const keyword = getKeyword();
-      if (keyword.length > 0) {
+    mobileSearchBtn.addEventListener("click", (e) => {
+      const mobileInputValue = document.querySelector(".m_search-input").value;
+      if (mobileInputValue) {
+        const keyword = getKeyword();
         getNewsByKeyword(keyword);
+      } else {
+        e.preventDefault();
       }
     });
   }
+}
+
+//test
+function clickCategory(responsiveMenu){
+  const menus = document.querySelectorAll(responsiveMenu);
+  menus.forEach((menu) => {
+      menu.addEventListener("click", (e) => getNewsByCategory(e));
+    });
 }
