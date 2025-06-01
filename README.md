@@ -156,12 +156,143 @@ link : https://kminjoo9093.github.io/NewsPop-project/
 
 <br><br><br><br>
 
+## 🚨 &nbsp; 이슈
+
+<br>
+
+### &nbsp; 1. 태블릿/모바일 버전 스크롤 시 헤더 불안정
+
+[ 수정 전 코드 ]
+```js
+const header = document.querySelector("#header-inner");
+const activeHeader = document.querySelector(".active-header");
+
+if (window.innerWidth > 1080) {
+  window.addEventListener("scroll", () => {
+    let scrollValue = window.scrollY;
+    if (scrollValue >= 240) {
+      header.style.display = "none";
+      activeHeader.style.height = `7rem`;
+      activeHeader.style.opacity = 1;
+    } else {
+      header.style.display = "block";
+      activeHeader.style.height = `0`;
+      activeHeader.style.opacity = 0;
+    }
+  });
+}
+
+```
+<br>
+❌ nbsp; 원인 : 스크린 너비 계산 시점 잘못 설정
+nbsp;nbsp; => 스크린 너비는 초기에만 계산되고, 1080px 이하일때는 스크롤 이벤트가 등록되지 않게 됨
+
+<br><br>
+
+### 🔍 &nbsp; 해결
+[ 수정 후 코드 ]
+```js
+const header = document.querySelector("#header-inner");
+const activeHeader = document.querySelector(".active-header");
+handelHeader();
+
+function handelHeader() {
+  window.addEventListener("scroll", () => {
+    let scrollValue = window.scrollY;
+    if (window.innerWidth > 1080 && scrollValue >= 240) {
+      header.style.display = "none";
+      activeHeader.style.height = `7rem`;
+      activeHeader.style.opacity = 1;
+    } else {
+      header.style.display = "block";
+      activeHeader.style.height = `0`;
+      activeHeader.style.opacity = 0;
+    }
+  });
+}
+```
+<br>
+1️⃣ &nbsp; 스크롤 이벤트가 항상 등록되며, 매번 스크린 너비를 검사함
+
+<br><br><br>
+<hr>
+
+### 2. 리사이즈 이벤트 시 데이터 요청 문제
+
+<br>
+
+[ 수정 전 코드 ]
+```js
+window.addEventListener("resize", () => {
+  showCategory(storedCategory);
+
+  if (window.innerWidth > 1080) {
+    clickCategory(".pc_menu a");
+  } else {
+    clickCategory(".m_menu a");
+  }
+
+  updateNewsWithCategory();
+});
+
+function updateNewsWithCategory(){
+  storedCategory = sessionStorage.getItem("category");
+  storedKeyword = sessionStorage.getItem("keyword");
+  storedNewsList = sessionStorage.getItem("newsList");
+
+  if (storedNewsList) {
+    selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
+    newsList = JSON.parse(storedNewsList);
+    render();
+    showCategory(storedCategory);
+  } else {
+    selectedCategory = false;
+    getLatestNews();
+  }
+}
+```
+<br>
+
+❌ &nbsp; 원인: 창 크기 조절하는 동안 계속 이벤트가 실행되기 때문에 너무 많은 데이터 요청 발생
+
+<br><br>
+
+### 🔍 &nbsp; 해결
+
+[ 수정 후 코드 ]
+```js
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer); // 이전 타이머 제거
+
+  showCategory(storedCategory);
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth > 1080) {
+      clickCategory(".pc_menu a");
+    } else {
+      clickCategory(".m_menu a");
+    }
+  updateNewsWithCategory();
+  }, 300); // 사용자가 멈춘 뒤 300ms 후 실행
+});
+```
+<br>
+
+1️⃣ &nbsp; 최종 리사이즈가 끝난 후에 한 번만 실행되도록 debounce(디바운스) 패턴 사용 <br>
+&nbsp;&nbsp; => setTimeout과 clearTimeout으로 마지막 리사이즈 이벤트 발생 3초 뒤 카테고리 뉴스 불러오는 함수를 실행하도록 함<br>
+❗️ &nbsp; clearTimeout의 역할 : 리사이즈 이벤트 동안 계속해서 발생한 예약된 실행을 모두 제거하고, 가장 마지막 동작만 실행하도록 함<br>
+
+
+<br><br><br>
+
 ## 📌 &nbsp; 회고 및 배운 점 정리 <br>
 
 1️⃣ &nbsp; @support : 브라우저에서 지원을 하는 경우 스타일을 조건적으로 활용함으로 브라우저 호환성 관리와 최신 css를 활용하는 방법 <br><br>
 2️⃣ &nbsp; 메인페이지에서 서브페이지로 이동할 때 sessionStorage 활용하여 카테고리, 검색 키워드 기억하기 <br><br>
+3️⃣ &nbsp; 리사이즈 이벤트 동안 중복 실행을 방지하기 위해 디바운스 패턴 사용하기<br><br>
 
-🆖 &nbsp; 개선할 점 : 태블릿/모바일 버전에서 카테고리를 처음 눌렀을 때에는 해당 카테고리가 바로 나타나지 않는 점 개선 필요
+🆖 &nbsp; 개선할 점 : 태블릿/모바일 버전에서 카테고리를 처음 눌렀을 때에는 해당 카테고리가 바로 나타나지 않는 점 개선 필요 => 🔴 &nbsp; 개선완료 (리사이즈 후 카테고리 보여주고, 뉴스 불러오는 기능 추가)
 <br><br>
 
 
