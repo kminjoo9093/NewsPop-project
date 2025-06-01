@@ -14,6 +14,9 @@ const baseUrl = `https://newsdata.io/api/1/latest?country=kr&language=ko&apikey=
 
 let newsList = [];
 let selectedCategory = false; //서브페이지 description글자수 설정 위한 flag변수
+let storedCategory = "";
+let storedKeyword = "";
+let storedNewsList = "";
 
 //문서 로드 후 이벤트 리스너 함수들 호출 - 에러가 나도 동작해야하기 때문에 문서로드이벤트 밖으로 뺌
 eventListers();
@@ -41,36 +44,43 @@ async function getLatestNews() {
   render();
 }
 
-let storedCategory = "";
-let storedKeyword = "";
-let storedNewsList = "";
-
 //문서 로드 후 카테고리, 키워드 처리
 document.addEventListener("DOMContentLoaded", () => {
+  updateNewsWithCategory();
+});
 
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer); // 이전 타이머 제거
+
+  showCategory(storedCategory);
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth > 1080) {
+      clickCategory(".pc_menu a");
+    } else {
+      clickCategory(".m_menu a");
+    }
+  updateNewsWithCategory();
+  }, 300); // 사용자가 멈춘 뒤 300ms 후 실행
+});
+
+function updateNewsWithCategory(){
   storedCategory = sessionStorage.getItem("category");
   storedKeyword = sessionStorage.getItem("keyword");
   storedNewsList = sessionStorage.getItem("newsList");
 
   if (storedNewsList) {
     selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
-    newsList = JSON.parse(sessionStorage.getItem("newsList"));
-    // newsList = JSON.parse(storedNewsList);
+    // newsList = JSON.parse(sessionStorage.getItem("newsList"));
+    newsList = JSON.parse(storedNewsList);
     render();
     showCategory(storedCategory);
   } else {
     selectedCategory = false;
     getLatestNews();
   }
-  
-  sessionStorage.clear();
-  // test
-  selectedCategory = false;
-});
-
-window.addEventListener("resize", () => {
-  showCategory(storedCategory);
-});
+}
 
 function showCategory(category) {
   const pcMenu = document.querySelectorAll(".pc_menu a");
@@ -87,9 +97,6 @@ function showCategory(category) {
     } else {
       currentCategory.style.display = "block";
       currentCategory.textContent = category.toUpperCase();
-
-      // test
-      pcMenu.forEach((a)=> a.style.color = "#222");
     }
   }
 }
@@ -97,14 +104,16 @@ function showCategory(category) {
 //카테고리 별 뉴스
 async function getNewsByCategory(e) {
   e.preventDefault();
-  const selectedMenu = e.currentTarget.getAttribute("data-menu_en").toLowerCase();
+  const selectedMenu = e.currentTarget
+    .getAttribute("data-menu_en")
+    .toLowerCase();
   const url = new URL(baseUrl);
   url.searchParams.set("category", selectedMenu);
   newsList = await getNews(url);
 
   sessionStorage.setItem("category", selectedMenu);
   sessionStorage.setItem("newsList", JSON.stringify(newsList));
-  window.location.href = e.target.href;
+  window.location.href = "subPage.html";
 }
 
 //키워드 가져오기
@@ -202,6 +211,7 @@ function eventListers() {
   logos.forEach((logo) => {
     logo.addEventListener("click", (e) => {
       e.preventDefault();
+      sessionStorage.clear();
       window.location.href = e.target.href;
     });
   });
@@ -215,15 +225,8 @@ function eventListers() {
     });
   });
 
-  // 반응형에 따른 버튼 이벤트
   if (window.innerWidth > 1080) {
     // 카테고리 클릭
-    // const menus = document.querySelectorAll(".pc_menu a");
-    // menus.forEach((menu) => {
-    //   menu.addEventListener("click", (e) => getNewsByCategory(e));
-    // });
-
-    // test
     clickCategory(".pc_menu a");
 
     // 키워드 검색
@@ -234,13 +237,7 @@ function eventListers() {
     });
   }
   if (window.innerWidth <= 1080) {
-    // 카테고리 클릭
-    // const menus = document.querySelectorAll(".m_menu a");
-    // menus.forEach((menu) => {
-    //   menu.addEventListener("click", (e) => getNewsByCategory(e));
-    // });
-
-    // test
+    //카테고리 클릭
     clickCategory(".m_menu a");
 
     // 키워드 검색
@@ -257,10 +254,11 @@ function eventListers() {
   }
 }
 
-//test
-function clickCategory(responsiveMenu){
+function clickCategory(responsiveMenu) {
   const menus = document.querySelectorAll(responsiveMenu);
   menus.forEach((menu) => {
-      menu.addEventListener("click", (e) => getNewsByCategory(e));
+    menu.addEventListener("click", (e) => {
+      getNewsByCategory(e);
     });
+  });
 }
