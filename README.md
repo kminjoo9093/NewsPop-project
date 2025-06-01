@@ -60,24 +60,64 @@ link : https://kminjoo9093.github.io/NewsPop-project/
   
   //문서 로드 후 스크린 크기 별 카테고리 처리
   document.addEventListener("DOMContentLoaded", () => {
-    const storedCategory = sessionStorage.getItem("category");
-    const storedKeyword = sessionStorage.getItem("keyword");
-    const storedNewsList = sessionStorage.getItem("newsList");
-    // 현재 카테고리 색상 표시
-    if (storedCategory) {
-      if (window.innerWidth > 1080) {
-        document.querySelectorAll(".pc_menu a").forEach((a) => {
-          a.getAttribute("data-menu_en").toLowerCase() === storedCategory
-            ? a.style.color = "crimson"
-            : a.style.color = "#222";
-        });
-      } else {
-        const currentCategory = document.querySelector(".current-category");
-        currentCategory.style.display = "block";
-        currentCategory.textContent = storedCategory.toUpperCase();
-      }
+  updateNewsWithCategory();
+});
+
+let resizeTimer;
+
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+
+  showCategory(storedCategory);
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth > 1080) {
+      clickCategory(".pc_menu a");
+    } else {
+      clickCategory(".m_menu a");
     }
-  });
+  updateNewsWithCategory();
+  }, 300); 
+});
+
+let storedCategory = "";
+let storedKeyword = "";
+let storedNewsList = "";
+
+function updateNewsWithCategory(){
+  storedCategory = sessionStorage.getItem("category");
+  storedKeyword = sessionStorage.getItem("keyword");
+  storedNewsList = sessionStorage.getItem("newsList");
+
+  if (storedNewsList) {
+    selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
+    // newsList = JSON.parse(sessionStorage.getItem("newsList"));
+    newsList = JSON.parse(storedNewsList);
+    render();
+    showCategory(storedCategory);
+  } else {
+    selectedCategory = false;
+    getLatestNews();
+  }
+}
+
+function showCategory(category) {
+  const pcMenu = document.querySelectorAll(".pc_menu a");
+  const currentCategory = document.querySelector(".current-category");
+
+  if (category) {
+    if (window.innerWidth > 1080) {
+      pcMenu.forEach((a) => {
+        a.getAttribute("data-menu_en").toLowerCase() === category
+          ? (a.style.color = "crimson")
+          : (a.style.color = "#222");
+      });
+      currentCategory.style.display = "none";
+    } else {
+      currentCategory.style.display = "block";
+      currentCategory.textContent = category.toUpperCase();
+    }
+  }
+}
   ```
   <br><br><br>
   <hr>
