@@ -203,6 +203,7 @@ link : https://kminjoo9093.github.io/NewsPop-project/
 <br>
 
 ### &nbsp; 1. 태블릿/모바일 버전 스크롤 시 헤더 불안정
+<br>
 
 [ 수정 전 코드 ]
 ```js
@@ -232,6 +233,8 @@ nbsp;nbsp; => 스크린 너비는 초기에만 계산되고, 1080px 이하일때
 <br><br>
 
 ### 🔍 &nbsp; 해결
+<br>
+
 [ 수정 후 코드 ]
 ```js
 const header = document.querySelector("#header-inner");
@@ -254,7 +257,7 @@ function handelHeader() {
 }
 ```
 <br>
-1️⃣ &nbsp; 스크롤 이벤트가 항상 등록되며, 매번 스크린 너비를 검사함
+1️⃣ &nbsp; 스크롤 이벤트가 항상 등록되며, 매번 스크린 너비를 검사하도록 수정
 
 <br><br><br>
 <hr>
