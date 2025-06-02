@@ -10,7 +10,7 @@ link : https://kminjoo9093.github.io/NewsPop-project/
 
 <br><br><br>
 
-## ☝️ &nbsp; 개발 목표
+## ☝️ &nbsp; 목표
 
 <br>
 
