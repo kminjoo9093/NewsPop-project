@@ -1,5 +1,5 @@
 //뉴스팝 메인 로직 (원하는 뉴스 api요청/받아오기, 보여주기)
-//스크립트 마지막 수정일 : 2025.01.12
+//스크립트 마지막 수정일 : 2025.06.01
 
 // ************* NEWSDATA API 사용 *************
 const allNewsArea = document.querySelectorAll(
@@ -13,12 +13,12 @@ const API_KEY = "pub_639768de8b9947fe2dd3550490250edef22a9";
 const baseUrl = `https://newsdata.io/api/1/latest?country=kr&language=ko&apikey=${API_KEY}`;
 
 let newsList = [];
-let selectedCategory = false; //서브페이지 description글자수 설정 위한 flag변수
+let selectedCategory = false;
 let storedCategory = "";
 let storedKeyword = "";
 let storedNewsList = "";
 
-//문서 로드 후 이벤트 리스너 함수들 호출 - 에러가 나도 동작해야하기 때문에 문서로드이벤트 밖으로 뺌
+//문서 로드 후 이벤트 리스너 함수들 호출
 eventListers();
 
 async function getNews(url) {
@@ -49,10 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNewsWithCategory();
 });
 
+//리사이즈 후 카테고리 처리
 let resizeTimer;
 
 window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer); // 이전 타이머 제거
+  clearTimeout(resizeTimer);
 
   showCategory(storedCategory);
   resizeTimer = setTimeout(() => {
@@ -62,17 +63,17 @@ window.addEventListener("resize", () => {
       clickCategory(".m_menu a");
     }
   updateNewsWithCategory();
-  }, 300); // 사용자가 멈춘 뒤 300ms 후 실행
+  }, 300);
 });
 
+//카테고리별 뉴스 업데이트
 function updateNewsWithCategory(){
   storedCategory = sessionStorage.getItem("category");
   storedKeyword = sessionStorage.getItem("keyword");
   storedNewsList = sessionStorage.getItem("newsList");
 
   if (storedNewsList) {
-    selectedCategory = true; //리로드하면 변수,함수 초기화, 리로드 된 후 true
-    // newsList = JSON.parse(sessionStorage.getItem("newsList"));
+    selectedCategory = true; 
     newsList = JSON.parse(storedNewsList);
     render();
     showCategory(storedCategory);
@@ -82,6 +83,7 @@ function updateNewsWithCategory(){
   }
 }
 
+// 현재 카테고리 표시
 function showCategory(category) {
   const pcMenu = document.querySelectorAll(".pc_menu a");
   const currentCategory = document.querySelector(".current-category");
@@ -144,7 +146,6 @@ async function getNewsByKeyword(keyword) {
 
 // 메인,서브 페이지별 description 형식
 function formatDescription(description, index) {
-  //description인수는 news.description
   if (description == null) {
     return "[본문에서 내용확인]";
   }
