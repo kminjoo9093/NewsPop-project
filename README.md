@@ -1,6 +1,8 @@
 # NewsPop 뉴스 웹사이트 제작
 
-오픈 api이용한 반응형 뉴스 웹사이트 제작 <br><br><br>
+<br>
+오픈 api이용한 반응형 뉴스 웹사이트 제작 <br>
+제작시기 : 2025.01 <br><br>
 
 link : https://kminjoo9093.github.io/NewsPop-project/
 <br><br><br>
