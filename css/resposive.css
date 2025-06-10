@@ -40,7 +40,7 @@
   .active-header {
     display: none;
   }
-  #pc_gnb {
+  .pc_gnb {
     display: none;
   }
   /* Mobile Nav */

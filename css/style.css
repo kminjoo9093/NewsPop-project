@@ -54,7 +54,7 @@ a{
   line-height: 9rem;
   height: inherit;
 }
-#pc_gnb{
+.pc_gnb{
   width: 90%;
   height: 7rem;
   margin: 0 auto;
@@ -152,7 +152,7 @@ a{
   font-size: 3rem;
   line-height: 2em;
 }
-.active-header #pc_gnb{
+.active-header .pc_gnb{
   width: 90%;
   box-shadow: none;
   margin: 0;
